@@ -4,18 +4,30 @@
       {
         "src": "src/server.ts",
         "use": "@vercel/node"
+      },
+      {
+        "src": "src/lib/prisma.ts",
+        "use": "@vercel/node"
       }
     ],
     "routes": [
       {
-        "src": "/routes/(.*)"
+        "src": "/api/(.*)",
+        "dest": "src/routes/$1"
       },
       {
         "src": "/(.*)",
-        "dest": "src/server.ts"
+        "dest": "src/index.html"
       }
     ],
     "env": {
       "DATABASE_URL": "file:./dev.db"
+    },
+    "functions": {
+      "api": {
+        "runtime": "nodejs14.x",
+        "memory": 512
+      }
     }
   }
+  
